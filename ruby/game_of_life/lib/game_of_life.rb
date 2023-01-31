@@ -7,13 +7,13 @@ class GameOfLife
 
   def step()
     @universe = universe.map.with_index do |row, i|
-      row.map.with_index do |_col, j|
+      row.map.with_index do |cell, j|
         neighbors = neighbors_of i, j
         if neighbors < 2
           0
-        elsif universe[i][j] < 1 && neighbors == 3
+        elsif cell < 1 && neighbors == 3
           1
-        elsif universe[i][j] > 0 && (neighbors == 2 || neighbors == 3)
+        elsif cell > 0 && (neighbors == 2 || neighbors == 3)
           1
         else
           0

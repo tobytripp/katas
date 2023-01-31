@@ -6,22 +6,20 @@ class GameOfLife
   end
 
   def step()
-    next_universe = Array.new(universe.length) { Array.new universe[0].length }
-    (0..universe.length-1).each do |i|
-      (0..universe[i].length-1).each do |j|
+    @universe = universe.map.with_index do |row, i|
+      row.map.with_index do |_col, j|
         neighbors = neighbors_of i, j
         if neighbors < 2
-          next_universe[i][j] = 0
+          0
         elsif universe[i][j] < 1 && neighbors == 3
-          next_universe[i][j] = 1
+          1
         elsif universe[i][j] > 0 && (neighbors == 2 || neighbors == 3)
-          next_universe[i][j] = 1
+          1
         else
-          next_universe[i][j] = 0
+          0
         end
       end
     end
-    @universe = next_universe
   end
 
   def state()

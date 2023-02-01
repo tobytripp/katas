@@ -1,4 +1,19 @@
+module Cell
+  ALIVE = 1
+  DEAD  = 0
+  refine Integer do
+    def alive?
+      self == ALIVE
+    end
+
+    def dead?
+      self == DEAD
+    end
+  end
+end
+
 class GameOfLife
+  using Cell
   attr_reader :universe
 
   def initialize(universe)
@@ -10,13 +25,13 @@ class GameOfLife
       row.map.with_index do |cell, j|
         neighbors = neighbors_of i, j
         if neighbors < 2
-          0
-        elsif cell < 1 && neighbors == 3
-          1
-        elsif cell > 0 && (neighbors == 2 || neighbors == 3)
-          1
+          Cell::DEAD
+        elsif cell.dead? && neighbors == 3
+          Cell::ALIVE
+        elsif cell.alive? && (neighbors == 2 || neighbors == 3)
+          Cell::ALIVE
         else
-          0
+          Cell::DEAD
         end
       end
     end
@@ -48,12 +63,13 @@ class GameOfLife
 end
 
 if $PROGRAM_NAME == __FILE__
-  game = GameOfLife.new [[0, 1, 0, 0, 0, 0],
-                         [0, 0, 1, 0, 0, 0],
-                         [1, 1, 1, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0]]
+  game = GameOfLife.new [[0, 1, 0, 0, 0, 0, 0],
+                         [0, 0, 1, 0, 0, 0, 0],
+                         [1, 1, 1, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0]]
   while true
     puts "\e[H\e[2J"
     game.print

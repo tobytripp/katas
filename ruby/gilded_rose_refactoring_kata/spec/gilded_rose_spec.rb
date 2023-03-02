@@ -161,8 +161,7 @@ describe "#update_quality" do
       end
     end
 
-    xcontext "conjured item" do
-      before { pending }
+    context "conjured item" do
       Given(:name) { "Conjured Mana Cake" }
 
       Invariant { expect(item.sell_in).to eq initial_sell_in-1 }
@@ -209,10 +208,10 @@ describe "#update_quality" do
 
     When { update_quality(items) }
 
-    Then { items[0].quality.should == 9 }
-    Then { items[0].sell_in.should == 4 }
+    Then { expect(items[0].quality).to eq 9 }
+    Then { expect(items[0].sell_in).to eq 4 }
 
-    Then { items[1].quality.should == 11 }
-    Then { items[1].sell_in.should == 2 }
+    Then { expect(items[1].quality).to eq 11 }
+    Then { expect(items[1].sell_in).to eq 2 }
   end
 end

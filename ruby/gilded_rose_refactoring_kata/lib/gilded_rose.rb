@@ -1,49 +1,59 @@
 def update_quality(items)
   items.each do |item|
-    if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
-      if item.quality > 0
-        if item.name != 'Sulfuras, Hand of Ragnaros'
-          item.quality -= 1
-        end
-      end
-    else
-      if item.quality < 50
-        item.quality += 1
-        if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-          if item.sell_in < 11
-            if item.quality < 50
-              item.quality += 1
-            end
-          end
-          if item.sell_in < 6
-            if item.quality < 50
-              item.quality += 1
-            end
-          end
-        end
-      end
+    if item.name == "NORMAL ITEM"
+      normal_tick item
     end
-    if item.name != 'Sulfuras, Hand of Ragnaros'
-      item.sell_in -= 1
+
+    if item.name == "Aged Brie"
+      brie_tick item
     end
-    if item.sell_in < 0
-      if item.name != "Aged Brie"
-        if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-          if item.quality > 0
-            if item.name != 'Sulfuras, Hand of Ragnaros'
-              item.quality -= 1
-            end
-          end
-        else
-          item.quality = item.quality - item.quality
-        end
-      else
-        if item.quality < 50
-          item.quality += 1
-        end
-      end
+
+    if item.name == "Sulfuras, Hand of Ragnaros"
+      sulfuras_tick item
+    end
+
+    if item.name == "Backstage passes to a TAFKAL80ETC concert"
+      pass_tick item
+    end
+
+    if item.name == "Conjured Mana Cake"
+      cake_tick item
     end
   end
+end
+
+def normal_tick(item)
+  item.quality -= 1 if item.sell_in <= 0
+  item.sell_in -= 1
+  item.quality -= 1
+  item.quality = 0 if item.quality < 0
+end
+
+def brie_tick(item)
+  item.sell_in -= 1
+  item.quality += 1
+  item.quality += 1 if item.sell_in <= 0
+  item.quality = [item.quality, 50].min
+end
+
+def sulfuras_tick(item)
+end
+
+def pass_tick(item)
+  item.quality += 1 if item.sell_in <= 10
+  item.quality += 1 if item.sell_in <= 5
+  item.quality += 1
+  item.quality = 0  if item.sell_in <= 0
+  item.quality = [item.quality, 50].min
+  item.sell_in -= 1
+end
+
+def cake_tick(item)
+  item.quality -= 2 if item.sell_in >= 0
+  item.quality -= 2 if item.sell_in == 0
+  item.quality -= 4 if item.sell_in <  0
+  item.quality = [item.quality, 0].max
+  item.sell_in -= 1
 end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------

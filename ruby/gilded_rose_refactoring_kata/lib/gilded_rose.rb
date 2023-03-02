@@ -27,11 +27,6 @@ class Brie < Inventory
   end
 end
 
-class Sulfurus < Inventory
-  def tick()
-  end
-end
-
 class Pass < Inventory
   def tick()
     item.quality += 1 if item.sell_in <= 10

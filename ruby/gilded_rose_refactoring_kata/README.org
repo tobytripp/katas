@@ -1,3 +1,5 @@
 * Gilded Rose Kata
 
 Forked from https://github.com/jimweirich/gilded_rose_kata
+
+Start at https://github.com/tobytripp/katas/tree/gilded_rose_initial

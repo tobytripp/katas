@@ -1,27 +1,3 @@
-def update_quality(items)
-  items.each do |item|
-    if item.name == "NORMAL ITEM"
-      Normal.new(item).tick
-    end
-
-    if item.name == "Aged Brie"
-      Brie.new(item).tick
-    end
-
-    if item.name == "Sulfuras, Hand of Ragnaros"
-      Sulfurus.new(item).tick
-    end
-
-    if item.name == "Backstage passes to a TAFKAL80ETC concert"
-      Pass.new(item).tick
-    end
-
-    if item.name == "Conjured Mana Cake"
-      Cake.new(item).tick
-    end
-  end
-end
-
 class Inventory
   attr_reader :item
 
@@ -76,6 +52,21 @@ class Cake < Inventory
     item.sell_in -= 1
   end
 end
+
+INVENTORY_CLASS = {
+  "NORMAL ITEM" => Normal,
+  "Aged Brie" => Brie,
+  "Sulfuras, Hand of Ragnaros" => Inventory,
+  "Backstage passes to a TAFKAL80ETC concert" => Pass,
+  "Conjured Mana Cake" => Cake
+}
+
+def update_quality(items)
+  items.each do |item|
+    INVENTORY_CLASS[item.name].new(item).tick
+  end
+end
+
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 

@@ -1,59 +1,80 @@
 def update_quality(items)
   items.each do |item|
     if item.name == "NORMAL ITEM"
-      normal_tick item
+      Normal.new(item).tick
     end
 
     if item.name == "Aged Brie"
-      brie_tick item
+      Brie.new(item).tick
     end
 
     if item.name == "Sulfuras, Hand of Ragnaros"
-      sulfuras_tick item
+      Sulfurus.new(item).tick
     end
 
     if item.name == "Backstage passes to a TAFKAL80ETC concert"
-      pass_tick item
+      Pass.new(item).tick
     end
 
     if item.name == "Conjured Mana Cake"
-      cake_tick item
+      Cake.new(item).tick
     end
   end
 end
 
-def normal_tick(item)
-  item.quality -= 1 if item.sell_in <= 0
-  item.sell_in -= 1
-  item.quality -= 1
-  item.quality = 0 if item.quality < 0
+class Inventory
+  attr_reader :item
+
+  def initialize(item)
+    @item = item
+  end
+
+  def tick()
+  end
 end
 
-def brie_tick(item)
-  item.sell_in -= 1
-  item.quality += 1
-  item.quality += 1 if item.sell_in <= 0
-  item.quality = [item.quality, 50].min
+class Normal < Inventory
+  def tick()
+    item.quality -= 1 if item.sell_in <= 0
+    item.sell_in -= 1
+    item.quality -= 1
+    item.quality = 0 if item.quality < 0
+  end
 end
 
-def sulfuras_tick(item)
+class Brie < Inventory
+  def tick()
+    item.sell_in -= 1
+    item.quality += 1
+    item.quality += 1 if item.sell_in <= 0
+    item.quality = [item.quality, 50].min
+  end
 end
 
-def pass_tick(item)
-  item.quality += 1 if item.sell_in <= 10
-  item.quality += 1 if item.sell_in <= 5
-  item.quality += 1
-  item.quality = 0  if item.sell_in <= 0
-  item.quality = [item.quality, 50].min
-  item.sell_in -= 1
+class Sulfurus < Inventory
+  def tick()
+  end
 end
 
-def cake_tick(item)
-  item.quality -= 2 if item.sell_in >= 0
-  item.quality -= 2 if item.sell_in == 0
-  item.quality -= 4 if item.sell_in <  0
-  item.quality = [item.quality, 0].max
-  item.sell_in -= 1
+class Pass < Inventory
+  def tick()
+    item.quality += 1 if item.sell_in <= 10
+    item.quality += 1 if item.sell_in <= 5
+    item.quality += 1
+    item.quality = 0  if item.sell_in <= 0
+    item.quality = [item.quality, 50].min
+    item.sell_in -= 1
+  end
+end
+
+class Cake < Inventory
+  def tick()
+    item.quality -= 2 if item.sell_in >= 0
+    item.quality -= 2 if item.sell_in == 0
+    item.quality -= 4 if item.sell_in <  0
+    item.quality = [item.quality, 0].max
+    item.sell_in -= 1
+  end
 end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------

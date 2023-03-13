@@ -11,40 +11,40 @@ public class Bowling {
         System.out.println("Hello");
     }
 
-	private List<Integer> rolls = new ArrayList<>();
-    
-	public void roll(int i) {
-		getRolls().add(i);
-	}
+    private List<Integer> rolls = new ArrayList<>();
 
-	public Integer score() {
-		return doScore(getRolls());
-	}
+    public void roll(int i) {
+        getRolls().add(i);
+    }
 
-	private int doScore(List<Integer> rolls) {
-		Integer x = null;
-		Integer y = null;
-		Integer z = null;
-		
-		if(rolls.size() == 0) { return 0; }
-		if(rolls.size() == 1) { return rolls.get(0); }
-		if(rolls.size() == 2) { return rolls.get(0) + rolls.get(1); }
-		if(rolls.size() == 3) { return rolls.get(0) + rolls.get(1) + rolls.get(2); }
-		
-		x = rolls.get(0);
-		y = rolls.get(1);
-		z = rolls.get(2);
-		
-		if(x == 10) {
-			return x + y + z + doScore(rolls.subList(1, rolls.size()));
-		}
-		if(x + y == 10) {
-			return x + y + z + doScore(rolls.subList(2, rolls.size()));
-		}
-		return x + y + doScore(rolls.subList(2, rolls.size()));
-	}
+    public Integer score() {
+        return doScore(getRolls());
+    }
 
-	public List<Integer> getRolls() {
-		return rolls;
-	}
+    private int doScore(List<Integer> rolls) {
+        Integer x = null;
+        Integer y = null;
+        Integer z = null;
+
+        if(rolls.size() == 0) { return 0; }
+        if(rolls.size() == 1) { return rolls.get(0); }
+        if(rolls.size() == 2) { return rolls.get(0) + rolls.get(1); }
+        if(rolls.size() == 3) { return rolls.get(0) + rolls.get(1) + rolls.get(2); }
+
+        x = rolls.get(0);
+        y = rolls.get(1);
+        z = rolls.get(2);
+
+        if(x == 10) {
+            return x + y + z + doScore(rolls.subList(1, rolls.size()));
+        }
+        if(x + y == 10) {
+            return x + y + z + doScore(rolls.subList(2, rolls.size()));
+        }
+        return x + y + doScore(rolls.subList(2, rolls.size()));
+    }
+
+    public List<Integer> getRolls() {
+        return rolls;
+    }
 }

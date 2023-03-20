@@ -11,29 +11,26 @@ public class Bowling {
         System.out.println("Hello");
     }
 
-    private List<Integer> rolls = new ArrayList<>();
+    private final List<Integer> rolls = new ArrayList<>();
 
     public void roll(int i) {
         getRolls().add(i);
     }
 
-    public Integer score() {
+    public int score() {
         return doScore(getRolls());
     }
 
+    public List<Integer> getRolls() {
+        return rolls;
+    }
+
     private int doScore(List<Integer> rolls) {
-        Integer x = null;
-        Integer y = null;
-        Integer z = null;
+        int x = rolls.size() > 0 ? rolls.get(0) : 0;
+        int y = rolls.size() > 1 ? rolls.get(1) : 0;
+        int z = rolls.size() > 2 ? rolls.get(2) : 0;
 
-        if(rolls.size() == 0) { return 0; }
-        if(rolls.size() == 1) { return rolls.get(0); }
-        if(rolls.size() == 2) { return rolls.get(0) + rolls.get(1); }
-        if(rolls.size() == 3) { return rolls.get(0) + rolls.get(1) + rolls.get(2); }
-
-        x = rolls.get(0);
-        y = rolls.get(1);
-        z = rolls.get(2);
+        if(rolls.size() <= 3) { return x + y + z; }
 
         if(x == 10) {
             return x + y + z + doScore(rolls.subList(1, rolls.size()));
@@ -42,9 +39,5 @@ public class Bowling {
             return x + y + z + doScore(rolls.subList(2, rolls.size()));
         }
         return x + y + doScore(rolls.subList(2, rolls.size()));
-    }
-
-    public List<Integer> getRolls() {
-        return rolls;
     }
 }

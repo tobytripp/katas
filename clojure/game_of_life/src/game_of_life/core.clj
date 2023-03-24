@@ -28,19 +28,23 @@
 (defn step
   "Step the GoL universe one tick and return the new universe"
   [universe]
-  (map-indexed (fn [x row]
-                 (map-indexed
-                  (fn [y cell]
-                    (let [n (neighbor-count universe x y)]
-                      (if (or (= n 3) (and (= n 2) (= 1 cell))) 1 0)))
-                  row))
-               universe))
+  (map-indexed
+   (fn [x row]
+     (map-indexed
+      (fn [y cell]
+        (let [n (neighbor-count universe x y)]
+          (if (or (= n 3) (and (= n 2) (= 1 cell))) 1 0)))
+      row))
+   universe))
 
 (defn -main []
-  (let [universe [[0 1 0 0 0 0]
+  (loop [universe [[0 1 0 0 0 0]
                   [0 0 1 0 0 0]
                   [1 1 1 0 0 0]
                   [0 0 0 0 0 0]
                   [0 0 0 0 0 0]
                   [0 0 0 0 0 0]]]
-    (pp/pprint (take 5 (iterate step universe)))))
+    (print "\033[2J")
+    (pp/pprint universe)
+    (Thread/sleep 300)
+    (recur (step universe))))

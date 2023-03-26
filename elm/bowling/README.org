@@ -1,0 +1,6 @@
+* Bowling Game Kata
+
+#+begin_src sh
+  npm install elm-test
+  npx elm-test
+#+end_src

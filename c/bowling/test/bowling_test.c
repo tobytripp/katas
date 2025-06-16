@@ -37,6 +37,24 @@ test_one_strike(const MunitParameter params[], void* data) {
   return MUNIT_OK;
 }
 
+static MunitResult
+test_perfect_game(const MunitParameter params[], void* data) {
+  const int rolls[] = {10,10,10,10,10,10,10,10,10,10,10,10};
+
+  munit_assert_int(300, ==, score(rolls));
+
+  return MUNIT_OK;
+}
+
+static MunitResult
+test_all_spares(const MunitParameter params[], void* data) {
+  const int rolls[] = {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5};
+
+  munit_assert_int(150, ==, score(rolls));
+
+  return MUNIT_OK;
+}
+
 static MunitTest test_suite_tests[] = {
   { (char*) "/gutter_game",
     test_gutter_game,
@@ -52,6 +70,14 @@ static MunitTest test_suite_tests[] = {
   },
   { (char*) "/one_strike",
     test_one_strike,
+    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL
+  },
+  { (char*) "/perfect_game",
+    test_perfect_game,
+    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL
+  },
+  { (char*) "/all_spares",
+    test_all_spares,
     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL
   },
   { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }

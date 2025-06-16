@@ -1,18 +1,24 @@
+#include "bowling.h"
+
 int score(const int rolls[]) {
-    int total = 0;
-    int roll_index = 0;
+    int score = 0;
+    int frameIndex = 0;
     
     for (int frame = 0; frame < 10; frame++) {
-        if (rolls[roll_index] + rolls[roll_index + 1] == 10) {
-            // Spare: add 10 plus the next roll as bonus
-            total += 10 + rolls[roll_index + 2];
-            roll_index += 2;
+        if (rolls[frameIndex] == 10) {
+            // Strike
+            score += 10 + rolls[frameIndex + 1] + rolls[frameIndex + 2];
+            frameIndex += 1;
+        } else if (rolls[frameIndex] + rolls[frameIndex + 1] == 10) {
+            // Spare
+            score += 10 + rolls[frameIndex + 2];
+            frameIndex += 2;
         } else {
-            // Normal frame: just add the two rolls
-            total += rolls[roll_index] + rolls[roll_index + 1];
-            roll_index += 2;
+            // Open frame
+            score += rolls[frameIndex] + rolls[frameIndex + 1];
+            frameIndex += 2;
         }
     }
     
-    return total;
+    return score;
 }

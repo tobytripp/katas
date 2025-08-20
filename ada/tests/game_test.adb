@@ -68,6 +68,16 @@ package body Game_Test is
       end loop;
       Current_Score := Score;
       Assert (Current_Score = 24, "Strike 10,3,4 + 16 zeroes should score 24");
+      
+      -- Test 10 spares (8,2) + final 3 should score 175
+      Reset_Game;
+      for I in 1 .. 10 loop
+         Roll (8);
+         Roll (2);
+      end loop;
+      Roll (3);  -- Bonus roll for 10th frame spare
+      Current_Score := Score;
+      Assert (Current_Score = 175, "10 spares (8,2) + final 3 should score 175");
    end Run_Test;
 
 end Game_Test;

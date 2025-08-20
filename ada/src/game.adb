@@ -18,24 +18,30 @@ package body Game is
       for Frame in 1 .. 10 loop
          exit when Roll_Idx > Roll_Index;
          
-         -- Check for spare in first frame
-         if Frame = 1 and then Roll_Idx + 1 <= Roll_Index and then 
-            Rolls(Roll_Idx) + Rolls(Roll_Idx + 1) = 10 then
-            -- Spare: add 10 plus next roll as bonus
-            Total := Total + 10;
-            if Roll_Idx + 2 <= Roll_Index then
-               Total := Total + Score_Value(Rolls(Roll_Idx + 2));
-            end if;
-            Roll_Idx := Roll_Idx + 2;
-         else
-            -- Regular scoring
-            Total := Total + Score_Value(Rolls(Roll_Idx));
-            if Roll_Idx + 1 <= Roll_Index then
-               Total := Total + Score_Value(Rolls(Roll_Idx + 1));
+         if Frame < 10 then
+            -- Regular frames (1-9)
+            if Roll_Idx + 1 <= Roll_Index and then 
+               Rolls(Roll_Idx) + Rolls(Roll_Idx + 1) = 10 then
+               -- Spare: add 10 plus next roll as bonus
+               Total := Total + 10;
+               if Roll_Idx + 2 <= Roll_Index then
+                  Total := Total + Score_Value(Rolls(Roll_Idx + 2));
+               end if;
                Roll_Idx := Roll_Idx + 2;
             else
-               Roll_Idx := Roll_Idx + 1;
+               -- Regular scoring
+               Total := Total + Score_Value(Rolls(Roll_Idx));
+               if Roll_Idx + 1 <= Roll_Index then
+                  Total := Total + Score_Value(Rolls(Roll_Idx + 1));
+               end if;
+               Roll_Idx := Roll_Idx + 2;
             end if;
+         else
+            -- 10th frame - add all remaining rolls
+            while Roll_Idx <= Roll_Index loop
+               Total := Total + Score_Value(Rolls(Roll_Idx));
+               Roll_Idx := Roll_Idx + 1;
+            end loop;
          end if;
       end loop;
       

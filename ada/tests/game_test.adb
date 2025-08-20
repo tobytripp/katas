@@ -49,6 +49,14 @@ package body Game_Test is
       end loop;
       Current_Score := Score;
       Assert (Current_Score = 16, "Spare 5,5,3 + 17 zeroes should score 16");
+      
+      -- Test rolling 5 twenty-one times should score 150
+      Reset_Game;
+      for I in 1 .. 21 loop
+         Roll (5);
+      end loop;
+      Current_Score := Score;
+      Assert (Current_Score = 150, "Rolling 5 twenty-one times should score 150");
    end Run_Test;
 
 end Game_Test;

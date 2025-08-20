@@ -20,8 +20,18 @@ package body Game is
          
          if Frame < 10 then
             -- Regular frames (1-9)
-            if Roll_Idx + 1 <= Roll_Index and then 
-               Rolls(Roll_Idx) + Rolls(Roll_Idx + 1) = 10 then
+            if Rolls(Roll_Idx) = 10 then
+               -- Strike: add 10 plus next two rolls as bonus
+               Total := Total + 10;
+               if Roll_Idx + 1 <= Roll_Index then
+                  Total := Total + Score_Value(Rolls(Roll_Idx + 1));
+               end if;
+               if Roll_Idx + 2 <= Roll_Index then
+                  Total := Total + Score_Value(Rolls(Roll_Idx + 2));
+               end if;
+               Roll_Idx := Roll_Idx + 1;
+            elsif Roll_Idx + 1 <= Roll_Index and then 
+                  Rolls(Roll_Idx) + Rolls(Roll_Idx + 1) = 10 then
                -- Spare: add 10 plus next roll as bonus
                Total := Total + 10;
                if Roll_Idx + 2 <= Roll_Index then

@@ -57,6 +57,17 @@ package body Game_Test is
       end loop;
       Current_Score := Score;
       Assert (Current_Score = 150, "Rolling 5 twenty-one times should score 150");
+      
+      -- Test strike: 10,3,4 + 16 zeroes should score 24
+      Reset_Game;
+      Roll (10);
+      Roll (3);
+      Roll (4);
+      for I in 1 .. 16 loop
+         Roll (0);
+      end loop;
+      Current_Score := Score;
+      Assert (Current_Score = 24, "Strike 10,3,4 + 16 zeroes should score 24");
    end Run_Test;
 
 end Game_Test;

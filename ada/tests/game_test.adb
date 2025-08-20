@@ -38,6 +38,17 @@ package body Game_Test is
       end loop;
       Current_Score := Score;
       Assert (Current_Score = 20, "20 rolls of 1 should result in score of 20");
+      
+      -- Test spare: 5,5,3 + 17 zeroes should score 16
+      Reset_Game;
+      Roll (5);
+      Roll (5);
+      Roll (3);
+      for I in 1 .. 17 loop
+         Roll (0);
+      end loop;
+      Current_Score := Score;
+      Assert (Current_Score = 16, "Spare 5,5,3 + 17 zeroes should score 16");
    end Run_Test;
 
 end Game_Test;

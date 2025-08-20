@@ -13,10 +13,32 @@ package body Game is
 
    function Score return Score_Value is
       Total : Score_Value := 0;
+      Roll_Idx : Positive := 1;
    begin
-      for I in 1 .. Roll_Index loop
-         Total := Total + Score_Value(Rolls(I));
+      for Frame in 1 .. 10 loop
+         exit when Roll_Idx > Roll_Index;
+         
+         -- Check for spare in first frame
+         if Frame = 1 and then Roll_Idx + 1 <= Roll_Index and then 
+            Rolls(Roll_Idx) + Rolls(Roll_Idx + 1) = 10 then
+            -- Spare: add 10 plus next roll as bonus
+            Total := Total + 10;
+            if Roll_Idx + 2 <= Roll_Index then
+               Total := Total + Score_Value(Rolls(Roll_Idx + 2));
+            end if;
+            Roll_Idx := Roll_Idx + 2;
+         else
+            -- Regular scoring
+            Total := Total + Score_Value(Rolls(Roll_Idx));
+            if Roll_Idx + 1 <= Roll_Index then
+               Total := Total + Score_Value(Rolls(Roll_Idx + 1));
+               Roll_Idx := Roll_Idx + 2;
+            else
+               Roll_Idx := Roll_Idx + 1;
+            end if;
+         end if;
       end loop;
+      
       return Total;
    end Score;
 

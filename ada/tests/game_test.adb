@@ -78,6 +78,14 @@ package body Game_Test is
       Roll (3);  -- Bonus roll for 10th frame spare
       Current_Score := Score;
       Assert (Current_Score = 175, "10 spares (8,2) + final 3 should score 175");
+      
+      -- Test perfect game: 12 tens should score 300
+      Reset_Game;
+      for I in 1 .. 12 loop
+         Roll (10);
+      end loop;
+      Current_Score := Score;
+      Assert (Current_Score = 300, "Perfect game: 12 tens should score 300");
    end Run_Test;
 
 end Game_Test;

@@ -1,3 +1,4 @@
 /clojure/bowling/.lein-failures
 /clojure/bowling/target/classes/
 /clojure/bowling/target/stale/
+/ruby/game_of_life/.claude/

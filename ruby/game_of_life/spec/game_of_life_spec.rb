@@ -106,6 +106,5 @@ RSpec.describe GameOfLife do
                                     [0, 0, 0, 0, 0, 0]]
       end
     end
-
   end
 end

@@ -1,0 +1,14 @@
+with "aunit";
+with "ada_project.gpr";
+
+project Test_Project is
+   for Source_Dirs use ("tests");
+   for Object_Dir use "obj/tests";
+   for Exec_Dir use "bin";
+   for Main use ("test_runner.adb");
+   
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2012", "-Wall");
+   end Compiler;
+   
+end Test_Project;

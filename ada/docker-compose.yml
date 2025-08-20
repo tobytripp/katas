@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ada-app:
+    build: .
+    container_name: ada-project
+    volumes:
+      - ./src:/app/src
+      - ./bin:/app/bin
+      - ./obj:/app/obj
+    working_dir: /app
+    command: ./bin/main
+    
+  ada-dev:
+    build: .
+    container_name: ada-dev
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: /bin/bash
+    stdin_open: true
+    tty: true

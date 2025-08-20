@@ -13,13 +13,8 @@ package body Game_Test is
    overriding
    procedure Run_Test (T : in out Test_Case) is
       pragma Unreferenced (T);
-      Pins : Roll_Result;
       Current_Score : Score_Value;
    begin
-      -- Test roll procedure
-      Roll (Pins);
-      Assert (Pins = 0, "Roll should return 0");
-
       -- Test score function
       Current_Score := Score;
       Assert (Current_Score = 0, "Score should be 0");
@@ -31,10 +26,18 @@ package body Game_Test is
       -- Test 20 rolls of 0 result in score of 0
       Reset_Game;
       for I in 1 .. 20 loop
-         Roll (I);
+         Roll (0);
       end loop;
       Current_Score := Score;
       Assert (Current_Score = 0, "20 rolls of 0 should result in score of 0");
+      
+      -- Test rolling all ones gives score of 20
+      Reset_Game;
+      for I in 1 .. 20 loop
+         Roll (1);
+      end loop;
+      Current_Score := Score;
+      Assert (Current_Score = 20, "20 rolls of 1 should result in score of 20");
    end Run_Test;
 
 end Game_Test;

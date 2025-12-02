@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"time"
+)
+
 type Universe [][]int
 
 func NewUniverse(size int) Universe {
@@ -31,6 +36,19 @@ func Step(u Universe) Universe {
 	return next
 }
 
+func Display(u Universe) {
+	for i := range u {
+		for j := range u[i] {
+			if u[i][j] == 1 {
+				fmt.Print("█ ")
+			} else {
+				fmt.Print(". ")
+			}
+		}
+		fmt.Println()
+	}
+}
+
 func neighbors(u Universe, row, col int) int {
 	count := 0
 	rows, cols := len(u), len(u[0])
@@ -53,5 +71,19 @@ func neighbors(u Universe, row, col int) int {
 }
 
 func main() {
+	universe := Universe{
+		{0, 1, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0, 0},
+		{1, 1, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0},
+	}
 
+	for {
+		fmt.Print("\033[H\033[2J") // Clear screen
+		Display(universe)
+		universe = Step(universe)
+		time.Sleep(100 * time.Millisecond)
+	}
 }

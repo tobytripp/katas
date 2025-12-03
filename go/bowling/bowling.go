@@ -41,3 +41,5 @@ func sum(pins []int) int {
 	}
 	return score
 }
+
+func main() {}

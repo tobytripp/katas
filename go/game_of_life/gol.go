@@ -18,8 +18,8 @@ func NewUniverse(size int) Universe {
 func Step(u Universe) Universe {
 	rows, cols := len(u), len(u[0])
 	next := NewUniverse(rows)
-	for i := 0; i < rows; i++ {
-		for j := 0; j < cols; j++ {
+	for i := range rows {
+		for j := range cols {
 			n := neighbors(u, i, j)
 			switch n {
 			case 2:

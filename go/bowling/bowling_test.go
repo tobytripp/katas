@@ -44,3 +44,26 @@ func TestAllSpares(t *testing.T) {
 
 	assert.Equal(t, game.Score(), 150)
 }
+
+func TestStrike(t *testing.T) {
+	game := NewGame()
+	game = game.Roll(10)
+	game = game.Roll(3)
+	game = game.Roll(4)
+	for range 16 {
+		game = game.Roll(0)
+	}
+
+	assert.Equal(t, 24, game.Score())
+}
+
+func TestFrameSpares(t *testing.T) {
+	game := NewGame()
+	for range 10 {
+		game = game.Roll(8)
+		game = game.Roll(2)
+	}
+	game = game.Roll(3)
+
+	assert.Equal(t, 175, game.Score())
+}

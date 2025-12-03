@@ -11,9 +11,9 @@ func NewGame() Game {
 	return game
 }
 
-func (game *Game) Roll(pins int) Game {
+func (game Game) Roll(pins int) Game {
 	game.Rolls = append(game.Rolls, pins)
-	return *game
+	return game
 }
 
 func (game Game) Score() int {
@@ -25,7 +25,9 @@ func doScore(pins []int) int {
 		return sum(pins)
 	}
 	x, y, z := pins[0], pins[1], pins[2]
-	if x+y == 10 {
+	if x == 10 {
+		return x + y + z + doScore(pins[1:])
+	} else if x+y == 10 {
 		return x + y + z + doScore(pins[2:])
 	} else {
 		return x + y + doScore(pins[2:])

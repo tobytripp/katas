@@ -34,8 +34,8 @@ func doScore(pins []int) int {
 
 func sum(pins []int) int {
 	score := 0
-	for p := range len(pins) {
-		score += pins[p]
+	for _, pin := range pins {
+		score += pin
 	}
 	return score
 }

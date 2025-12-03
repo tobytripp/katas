@@ -67,3 +67,12 @@ func TestFrameSpares(t *testing.T) {
 
 	assert.Equal(t, 175, game.Score())
 }
+
+func TestPerfectGame(t *testing.T) {
+	game := NewGame()
+	for range 12 {
+		game = game.Roll(10)
+	}
+
+	assert.Equal(t, 300, game.Score())
+}

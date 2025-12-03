@@ -12,7 +12,7 @@ func TestGutterGame(t *testing.T) {
 		game.Roll(0)
 	}
 
-	assert.Equal(t, game.Score(), 0, "Expected gutter game to score zero")
+	assert.Equal(t, 0, game.Score(), "Expected gutter game to score zero")
 }
 
 func TestAllOnes(t *testing.T) {
@@ -42,7 +42,7 @@ func TestAllSpares(t *testing.T) {
 		game.Roll(5)
 	}
 
-	assert.Equal(t, game.Score(), 150)
+	assert.Equal(t, 150, game.Score(), 150)
 }
 
 func TestStrike(t *testing.T) {

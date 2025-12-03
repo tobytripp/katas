@@ -1,23 +1,21 @@
 package main
 
 type Game struct {
-	Rolls []int
+	rolls []int
 }
 
-func NewGame() Game {
-	game := Game{
-		Rolls: make([]int, 20),
+func NewGame() *Game {
+	return &Game{
+		rolls: make([]int, 0, 21),
 	}
-	return game
 }
 
-func (game Game) Roll(pins int) Game {
-	game.Rolls = append(game.Rolls, pins)
-	return game
+func (game *Game) Roll(pins int) {
+	game.rolls = append(game.rolls, pins)
 }
 
 func (game Game) Score() int {
-	return doScore(game.Rolls)
+	return doScore(game.rolls)
 }
 
 func doScore(pins []int) int {
